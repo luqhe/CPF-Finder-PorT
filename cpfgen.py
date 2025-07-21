@@ -1,6 +1,4 @@
-cpf = input()
-
-def cpfCheck(dig):
+def cpfCheck(dig, cpf):
     lcpf = list(map(int, cpf))
     lcpf[0:0] = dig
 
@@ -18,13 +16,16 @@ def cpfCheck(dig):
 
     return lcpf
 
-res = []
-for i in range(1000):
-    dig = str(i)
-    dig = list(map(int, dig))
+def generate(cpf):
+    res = []
+    for i in range(1000):
+        dig = str(i)
+        dig = list(map(int, dig))
+    
+        dig = [0]*(3-len(dig)) + dig
+    
+        res.append(''.join(cpfCheck(dig, cpf)))
+    
+    with open(f'gens/{cpf} cpfgen', 'w') as f: f.write('\n'.join(res))
 
-    dig = [0]*(3-len(dig)) + dig
-
-    res.append(''.join(cpfCheck(dig)))
-
-with open(f'gens/{cpf} cpfgen', 'w') as f: f.write('\n'.join(res))
+    return f'gens/{cpf} cpfgen'
